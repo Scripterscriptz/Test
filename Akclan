@@ -1,0 +1,223 @@
+local Rayfield = loadstring(game:HttpGet('https://sirius.menu/rayfield'))()
+
+local Window = Rayfield:CreateWindow({
+   Name = "AK script hub",
+   LoadingTitle = "Made by the Ak Clan!",
+   LoadingSubtitle = "by AKs",
+   ConfigurationSaving = {
+      Enabled = true,
+      FolderName = nil, -- Create a custom folder for your hub/game
+      FileName = "script"
+   },
+   Discord = {
+      Enabled = false,
+      Invite = "noinvitelink", -- The Discord invite code, do not include discord.gg/. E.g. discord.gg/ABCD would be ABCD
+      RememberJoins = true -- Set this to false to make them join the discord every time they load it up
+   },
+   KeySystem = false, -- Set this to true to use our key system
+   KeySettings = {
+      Title = "Untitled",
+      Subtitle = "Key System",
+      Note = "No method of obtaining the key is provided",
+      FileName = "Key", -- It is recommended to use something unique as other scripts using Rayfield may overwrite your key file
+      SaveKey = true, -- The user's key will be saved, but if you change the key, they will be unable to use your script
+      GrabKeyFromSite = false, -- If this is true, set Key below to the RAW site you would like Rayfield to get the key from
+      Key = {"Hello"} -- List of keys that will be accepted by the system, can be RAW file links (pastebin, github etc) or simple strings ("hello","key22")
+   }
+})
+
+local MainTab = Window:CreateTab("🏡Home", 4483362458) -- Title, Image
+local MainSection = MainTab:CreateSection("Main scripts")
+
+Rayfield:Notify({
+   Title = "Script executed",
+   Content = "Notification Content",
+   Duration = 2,
+   Image = nill,
+   Actions = { -- Notification Buttons
+      Ignore = {
+         Name = "Okay!",
+         Callback = function()
+         print("The user tapped Okay!")
+      end
+   },
+},
+})
+
+local Button = MainTab:CreateButton({
+   Name = "Fly Gui v3",
+   Callback = function()
+   loadstring(game:HttpGet("https://raw.githubusercontent.com/XNEOFF/FlyGuiV3/main/FlyGuiV3.txt"))()
+   end,
+})
+
+
+local Button = MainTab:CreateButton({
+   Name = "Mobile keybord",
+   Callback = function()
+   loadstring(game:HttpGet("https://raw.githubusercontent.com/advxzivhsjjdhxhsidifvsh/mobkeyboard/main/main.txt", true))()
+   end,
+})
+
+local Button = MainTab:CreateButton({
+   Name = "Hitbox Expander",
+   Callback = function()
+   loadstring(game:HttpGet("https://raw.githubusercontent.com/Vcsk/RobloxScripts/main/HitboxExpander.lua"))()
+   end,
+})
+
+local Button = MainTab:CreateButton({
+   Name = "Multi GUI",
+   Callback = function()
+   loadstring(game:HttpGet("https://pastebin.com/raw/zAuR0JUT"))()
+   end,
+})
+
+local Button = MainTab:CreateButton({
+   Name = "AimBot",
+   Callback = function()
+   local fov = 100
+local RunService = game:GetService("RunService")
+local UserInputService = game:GetService("UserInputService")
+local Players = game:GetService("Players")
+local Cam = game.Workspace.CurrentCamera
+
+local FOVring = Drawing.new("Circle")
+FOVring.Visible = true
+FOVring.Thickness = 2
+FOVring.Color = Color3.fromRGB(128, 0, 128) -- Purple color
+FOVring.Filled = false
+FOVring.Radius = fov
+FOVring.Position = Cam.ViewportSize / 2
+
+local function updateDrawings()
+    local camViewportSize = Cam.ViewportSize
+    FOVring.Position = camViewportSize / 2
+end
+
+local function onKeyDown(input)
+    if input.KeyCode == Enum.KeyCode.Delete then
+        RunService:UnbindFromRenderStep("FOVUpdate")
+        FOVring:Remove()
+    end
+end
+
+UserInputService.InputBegan:Connect(onKeyDown)
+
+local function lookAt(target)
+    local lookVector = (target - Cam.CFrame.Position).unit
+    local newCFrame = CFrame.new(Cam.CFrame.Position, Cam.CFrame.Position + lookVector)
+    Cam.CFrame = newCFrame
+end
+
+local function getClosestPlayerInFOV(trg_part)
+    local nearest = nil
+    local last = math.huge
+    local playerMousePos = Cam.ViewportSize / 2
+
+    for _, player in ipairs(Players:GetPlayers()) do
+        if player ~= Players.LocalPlayer then
+            local part = player.Character and player.Character:FindFirstChild(trg_part)
+            if part then
+                local ePos, isVisible = Cam:WorldToViewportPoint(part.Position)
+                local distance = (Vector2.new(ePos.x, ePos.y) - playerMousePos).Magnitude
+
+                if distance < last and isVisible and distance < fov then
+                    last = distance
+                    nearest = player
+                end
+            end
+        end
+    end
+
+    return nearest
+end
+
+RunService.RenderStepped:Connect(function()
+    updateDrawings()
+    local closest = getClosestPlayerInFOV("Head")
+    if closest and closest.Character:FindFirstChild("Head") then
+        lookAt(closest.Character.Head.Position)
+    end
+end)
+   end,
+})
+
+local BloxFruitsTab = Window:CreateTab("BloxFruits🍎", 4483362458) -- Title, Image
+local BloxFruitsSection = BloxFruitsTab:CreateSection("Blox fruits scripts")
+
+local Button = BloxFruitsTab:CreateButton({
+   Name = "Redz hub",
+   Callback = function()
+  loadstring(game:HttpGet("https://raw.githubusercontent.com/REDzHUB/BloxFruits/main/redz9999"))()
+   end,
+})
+
+local Button = BloxFruitsTab:CreateButton({
+   Name = "Domanic Hub",
+   Callback = function()
+  loadstring(game:HttpGet("https://raw.githubusercontent.com/Domadicoof/Domadicoof/main/Domadichub/NottoGay/Start.ranscript"))()
+   end,
+})
+
+local Button = BloxFruitsTab:CreateButton({
+   Name = "Auto farm bounty",
+   Callback = function()
+  getgenv().Setting = {
+    ["Team"] = "Pirates",
+    ["Chat"] = {""},
+    ["Skip Race V4"] = true,
+    ["Misc"] = {
+        ["Enable Lock Bounty"] = false,
+        ["Lock Bounty"] = {0, 300000000},
+        ["Hide Health"] = {4500,5000},
+        ["Lock Camera"] = true,
+        ["Enable Cam Farm"] = false,
+        ["White Screen"] = false, 
+        ["FPS Boost"] = false,
+        ["Bypass TP"] = true, 
+        ["Random & Store Fruit"] = true
+    },
+    ["Item"] = {
+        ["Melee"] = {["Enable"] = true,
+            ["Z"] = {["Enable"] = true, ["Hold Time"] = 1.5},
+            ["X"] = {["Enable"] = true, ["Hold Time"] = 0.1},
+            ["C"] = {["Enable"] = true, ["Hold Time"] = 0.1}
+        },
+        ["Blox Fruit"] = {["Enable"] = false,
+            ["Z"] = {["Enable"] = true, ["Hold Time"] = 1.5},
+            ["X"] = {["Enable"] = true, ["Hold Time"] = 0},
+            ["C"] = {["Enable"] = true, ["Hold Time"] = 0},
+            ["V"] = {["Enable"] = true, ["Hold Time"] = 0},
+            ["F"] = {["Enable"] = true, ["Hold Time"] = 0}
+        },
+        ["Sword"] = {["Enable"] = true,
+            ["Z"] = {["Enable"] = true, ["Hold Time"] = 0.1},
+            ["X"] = {["Enable"] = true, ["Hold Time"] = 0.1}
+        },
+        ["Gun"] = {["Enable"] = false,
+            ["Z"] = {["Enable"] = true, ["Hold Time"] = 0.1},
+            ["X"] = {["Enable"] = true, ["Hold Time"] = 0.1}
+        } 
+    } 
+}
+loadstring(game:HttpGet("https://raw.githubusercontent.com/ItzWindy01/WindyXBypass/main/BountyLoadder.lua"))()
+   end,
+})
+
+local Button = BloxFruitsTab:CreateButton({
+   Name = "Auto bounty/ trials",
+   Callback = function()
+  loadstring(game:HttpGet"https://raw.githubusercontent.com/Basicallyy/Basicallyy/main/MinGamingV4.lua")()
+   end,
+})
+
+local BedwarsTab = Window:CreateTab("Bedwars🛌", 4483362458) -- Title, Image
+local BedwarsSection = BedwarsTab:CreateSection("Bedwars scripts")
+
+local Button = BedwarsTab:CreateButton({
+   Name = "CoCospliot",
+   Callback = function()
+  loadstring(game:HttpGet("https://raw.githubusercontent.com/QP-Community/Roblox/main/CoCoSkid"))()
+   end,
+})
